@@ -8,6 +8,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Startup Name Generator',
+      theme: ThemeData(          // Add the 3 lines from here...
+        primaryColor: Colors.white,
+        backgroundColor: Colors.red,
+        scaffoldBackgroundColor: Colors.lightGreenAccent,
+        platform: TargetPlatform.iOS,
+      ),                         // ... to here.
       home: RandomWords(),
 //      title: 'Welcome to Flutter',
 //      home: Scaffold(
