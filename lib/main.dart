@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final Set<WordPair> _saved = Set<WordPair>();   // Add this line.
+  final Set<WordPair> _saved = Set<WordPair>(); // Add this line.
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
@@ -32,11 +32,48 @@ class RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+        actions: <Widget>[
+          // Add 3 lines from here...
+          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+        ], // ... to here.
       ),
       body: _buildSuggestions(),
     );
 //    final wordPair = WordPair.random();
 //    return Text(wordPair.asPascalCase);
+  }
+
+  void _pushSaved() {
+    print("some");
+
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        // Add 20 lines from here...
+        builder: (BuildContext context) {
+          final Iterable<ListTile> tiles = _saved.map(
+            (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final List<Widget> divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+          return Scaffold(
+            // Add 6 lines from here...
+            appBar: AppBar(
+              title: Text('Saved Suggestions'),
+            ),
+            body: ListView(children: divided),
+          ); // ... to here.
+        },
+      ), // ... to here.
+    );
   }
 
   Widget _buildSuggestions() {
